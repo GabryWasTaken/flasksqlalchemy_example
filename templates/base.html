@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Members</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <div class="navbar" style="width: 100%;">
+        <a {% if request.path == '/' %}class="active" {% endif %}href="/">Home</a>
+        <a {% if request.path == '/add' %}class="active" {% endif %}href="/add">Add Member</a>
+        <a {% if request.path == '/search' %}class="active" {% endif %}href="/search">Search Member</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+    <footer>
+        <p>Created by GabryWasTaken - <a href="https://github.com/GabryWasTaken" target="_blank">GitHub profile</a></p>
+    </footer>
+</body>
+</html>

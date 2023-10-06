@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="navbar" style="width: 100%;">
+        <a {% if request.path == '/' %}class="active" {% endif %}href="/">Home</a>
+        <a {% if request.path == '/add' %}class="active" {% endif %}href="/add">Add Member</a>
+        <a {% if request.path == '/search' %}class="active" {% endif %}href="/search">Search Member</a>
+    </div>
+    <h1>Members</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Join Date</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+            <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.name }}</td>
+                <td class="password-cell">
+                    <span class="password-mask">{{ '*' * member.password|length }}</span>
+                    <div class="password-field">{{ member.password }}</div>
+                </td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.join_date.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    <form action="/update" method="POST">
+                        <input type="hidden" name="id" value="{{ member.id }}">
+                        <input type="text" name="name" value="{{ member.name }}">
+                        <input type="text" name="password" placeholder="New Password!">
+                        <input type="text" name="email" value="{{ member.email }}">
+                        <button type="submit">Update</button> &nbsp;
+                        <button type="submit" formaction="/delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
